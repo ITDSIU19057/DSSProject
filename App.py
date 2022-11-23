@@ -12,7 +12,8 @@ weights = pkl.load(open('./data/weights.pkl', 'rb'))
 #     ListMovies = pkl.load(f)
 posters = pd.read_csv("./posters.csv")
 direct = pd.read_csv("./direc_actor.csv")
-tag_genome = Algor(movies, genome, weights, posters, direct)
+plot = pd.read_csv("./plot.csv")
+tag_genome = Algor(movies, genome, weights, posters, direct, plot)
 
 
 st.title('Movie Recommendation System')
@@ -136,7 +137,8 @@ if st.button('Recommend movie'):
                 with cols1:
                     st.image(tag_genome.extract_urls(movie[0]))
                 with cols2:
-                    st.write('Directors :', tag_genome.extract_direct(movie[0]))
-                    st.write('Actors :', tag_genome.extract_direct(movie[0]))
+                    st.write('Directors :', tag_genome.extract_direct(movie[0])[0])
+                    st.write('Actors :', tag_genome.extract_direct(movie[0])[1])
+                    st.write('Plot :', tag_genome.extract_plot(movie[0]))
         except:
             pass

@@ -6,11 +6,12 @@ import streamlit as st
 
 @st.cache
 class Algor():
-    def __init__(self, movies, genome, weights, poster, direct):
+    def __init__(self, movies, genome, weights, poster, direct, plot):
         self.np_genome = genome.to_numpy()
         self.np_movies = movies.to_numpy()
         self.np_posters = poster.to_numpy()
         self.np_directs = direct.to_numpy()
+        self.np_plot = plot.to_numpy()
         self.weights = weights
         self.ListMovies = self.np_movies[:,1]
         self.len_movie = len(self.np_movies)
@@ -127,6 +128,12 @@ class Algor():
         direct = self.np_directs[np.where(self.np_directs[:,0] == movie_id)[0]][0,1]
         actor = self.np_directs[np.where(self.np_directs[:,0] == movie_id)[0]][0,2]
         return (direct, actor)
+
+    def extract_plot(self, movie):
+        movie_id = self.movies_id[movie][0]
+    
+        plot = self.np_plot[np.where(self.np_plot[:,0] == movie_id)[0]][0,1]
+        return plot
     
     def __call__(self, item, list_critiques):
         return self.recommendation(item, list_critiques)
