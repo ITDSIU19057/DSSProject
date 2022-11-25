@@ -119,7 +119,9 @@ class Algor():
         return result
 
     def extract_urls(self, movie):
-        url = self.np_posters[np.where(self.np_posters[:,1] == movie)[0]][0,2]
+        movie_id = self.movies_id[movie][0]
+
+        url = self.np_posters[np.where(self.np_posters[:,0] == movie_id)[0]][0,2]
         return url
 
     def extract_direct(self, movie):
